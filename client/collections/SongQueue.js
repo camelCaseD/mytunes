@@ -8,15 +8,13 @@ var SongQueue = Songs.extend({
       }
     }, this);
 
-    this.on('ended', function(song) {
-      this.dequeue();
-    }, this);
+    this.on('ended', this.dequeue, this);
 
     this.on('dequeue', this.dequeue, this);
   },
 
   playFirst: function() {
-    this.at(0).play()
+    this.at(0).play();
   },
 
   dequeue: function() {
