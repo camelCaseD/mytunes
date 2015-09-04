@@ -1,0 +1,121 @@
+body {
+  background-color: #18191D;
+  color: #636466;
+}
+
+i.icon {
+  background-image: url('../bower_components/material-design-icons/sprites/css-sprite/sprite-av-black.png');
+  display: inline-block;
+}
+
+div#player {
+  padding-bottom: 220px;
+}
+
+div#content ul {
+  text-align: center;
+  list-style-type: none;
+}
+
+li {
+  height: 150px;
+  position: relative;
+  cursor: pointer;
+}
+
+li div {
+  position: relative;
+  top: 25%;
+}
+
+li div.title {
+  font-size: 20px;
+  color: #7B7B7D;
+}
+
+li div.author {
+  display: block;
+  color: #3C423C;
+}
+
+img.record {
+  width: 200px;
+  position: absolute;
+  left: 0;
+  border-radius: 100px;
+  transform: rotate(6deg);
+}
+
+div.player {
+  width: 100vw;
+  background-color: #0F7BDF;
+  height: 100px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+div.player button.camel-fab {
+  background-color: #FF3942;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  outline: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  left: 200px;
+  bottom: 28px;
+}
+
+div.player button.camel-fab:hover {
+  background-color: #FF3942;
+}
+
+div.player #info {
+  position: absolute;
+  top: 0;
+  left: 75%;
+  transform: translatex(-100%);
+}
+
+div.player #info h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #CBDEF2;
+}
+
+div.player #info h5 {
+  color: #6DB1EF;
+  margin: 0;
+  font-size: 15px;
+}
+
+.timeline {
+  background-color: #2187E7;
+  height: 3px;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 20px;
+}
+
+.currentTime {
+  background-color: #42D69C;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  bottom: 6px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.timeEplased {
+  background-color: #38CAA8;
+  height: 3px;
+  width: 0;
+  position: relative;
+  bottom: 15px;
+}

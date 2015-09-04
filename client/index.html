@@ -1,9 +1,26 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="stylesheet" href="bower_components/material-design-lite/material.min.css">
+    <link rel="stylesheet" href="bower_components/material-design-icons/sprites/css-sprite/sprite-av-black.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+
   <body>
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--2-col"></div>
+      <div class="mdl-cell mdl-cell--8-col" id="content">
+
+      </div>
+      <div class="mdl-cell mdl-cell--2-col"></div>
+    </div>
+
     <!-- Scripts may be placed anywhere on a page. But FYI, they block rendering of elements
      below them until after the scripts load-->
     <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/velocity/velocity.min.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/backbone/backbone.js"></script>
 
@@ -31,7 +48,7 @@
         var appView = new AppView({model: app});
 
         // put the view onto the screen
-        $('body').append(appView.render());
+        $('#content').append(appView.render());
       });
     </script>
   </body>
