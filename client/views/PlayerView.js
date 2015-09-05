@@ -79,6 +79,8 @@ var PlayerView = Backbone.View.extend({
     } else if (audio.readyState === 4) {
       this.model.pause();
       audio.pause();
+      this.$el.children('.timeline').children('.timeEplased').velocity('stop');
+      this.$el.children('.timeline').children('.currentTime').velocity('stop');
     }
   },
 
@@ -92,8 +94,8 @@ var PlayerView = Backbone.View.extend({
       var percentPlayed = Math.round($audio.currentTime / $audio.duration * 100);
       var barWidth = Math.ceil(percentPlayed * (800 / 100));
 
-      $timeEplased.velocity({width: [barWidth + 'px', $timeEplased.width() + 'px']}, {duration: 250, queue: false});
-      $currentTime.velocity({left: [barWidth + 'px', $currentTime.css('left')]}, {duration: 250, queue: false});
+      $timeEplased.velocity({width: [barWidth + 'px', $timeEplased.width() + 'px']}, {duration: 999, easing: 'linear', queue: false});
+      $currentTime.velocity({left: [barWidth + 'px', $currentTime.css('left')]}, {duration: 999, easing: 'linear', queue: false});
     }
 
     var minutes = Math.floor($audio.currentTime / 60);

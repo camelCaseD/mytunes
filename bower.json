@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "backbone": "~1.0.0",
+    "interact": "interact.js#~1.2.4",
     "jquery": "~2.0.3",
     "material-design-icons": "~2.0.0",
     "material-design-lite": "~1.0.4",
