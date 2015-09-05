@@ -19,6 +19,8 @@ var PlayerView = Backbone.View.extend({
     'click button': 'togglePlay'
   },
 
+  seeking: false,
+
   setSong: function(song) {
     this.model = song;
     this.render();
@@ -27,6 +29,28 @@ var PlayerView = Backbone.View.extend({
   render: function() {
     var template = _.template('<h2><%= title %></h2><h5><%= artist %></h5>')
     this.$el.children('#info').html(template(this.model.attributes));
+
+    interact('.currentTime').draggable({
+      onstart: (function() {
+        this.seeking = true;
+        var $audio = this.$el.children('audio')[0];
+
+        if (!$audio.paused) {
+          $audio.pause();
+        }
+      }).bind(this),
+
+      onmove: this.seek.bind(this),
+
+      onend: (function() {
+        this.seeking = false;
+        var $audio = this.$el.children('audio')[0];
+
+        if ($audio.paused) {
+          $audio.play();
+        }
+      }).bind(this)
+    });
 
     return this.$el.children('audio').attr('src', this.model ? this.model.get('url') : '');
   },
@@ -62,11 +86,13 @@ var PlayerView = Backbone.View.extend({
     var $currentTime = this.$el.children('.timeline').children('.currentTime');
     var $currentTimeInfo = this.$el.children('.timeline')[0].children[0];
 
-    var percentPlayed = Math.round($audio.currentTime / $audio.duration * 100);
-    var barWidth = Math.ceil(percentPlayed * (800 / 100));
+    if (!this.seeking) {
+      var percentPlayed = Math.round($audio.currentTime / $audio.duration * 100);
+      var barWidth = Math.ceil(percentPlayed * (800 / 100));
 
-    $timeEplased.velocity({width: [barWidth + 'px', $timeEplased.width() + 'px']}, {duration: 250, queue: false});
-    $currentTime.velocity({left: [barWidth + 'px', $currentTime.css('left')]}, {duration: 250, queue: false});
+      $timeEplased.velocity({width: [barWidth + 'px', $timeEplased.width() + 'px']}, {duration: 250, queue: false});
+      $currentTime.velocity({left: [barWidth + 'px', $currentTime.css('left')]}, {duration: 250, queue: false});
+    }
 
     var minutes = Math.floor($audio.currentTime / 60);
     var seconds = Math.floor($audio.currentTime - minutes * 60);
@@ -87,6 +113,29 @@ var PlayerView = Backbone.View.extend({
     }
 
     $maxTimeInfo.innerText = minutes + ':' + seconds;
+  },
+
+  seek: function(e) {
+    var pos = {x: e.dx, y: e.dy};
+
+    var $currentTime = this.$el.children('.timeline').children('.currentTime');
+    var $timeEplased = this.$el.children('.timeline').children('.timeEplased');
+    var currPosCT = parseFloat($currentTime.css('left'));
+    var currPosTE = parseFloat($timeEplased.width());
+
+    if (currPosCT + pos.x <= 790 && currPosCT + pos.x >= 0) {
+      $currentTime.css('left', currPosCT + pos.x + 'px');
+    }
+
+    if (currPosTE + pos.x >= 0 && currPosTE + pos.x <= 800) {
+      $timeEplased.css('width', currPosTE + pos.x + 'px');
+    }
+
+    var $audio = this.$el.children('audio')[0];
+    var duration = $audio.duration;
+
+    var percentSelected = $timeEplased.width() / 800;
+    $audio.currentTime = percentSelected * duration;
   }
 
 });
