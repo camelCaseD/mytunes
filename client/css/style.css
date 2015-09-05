@@ -134,3 +134,61 @@ div.player #info h5 {
   right: -40px;
   color: #CBDEF2;
 }
+
+.song-queue {
+  background-color: #0F7BDF;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  z-index: 2;
+  bottom: -388px;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.song-queue ul {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  padding: 0;
+}
+
+.song-queue li {
+  width: 100%;
+  border-top: 1px solid black;
+  height: 50px;
+  cursor: default;
+}
+
+.song-queue li .container {
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.song-queue li .title {
+  color: #CBDEF2;
+  width: 40%;
+  display: inline-block;
+  position: absolute;
+  right: 60%;
+  text-overflow: ellipsis;
+}
+
+.song-queue li .author {
+  display: inline-block;
+  color: #6DB1EF;
+  top: 5px;
+  font-size: 15px;
+  width: 40%;
+  left: 20%;
+}
+
+.song-queue li .play-count {
+  display: inline-block;
+  color: #6DB1EF;
+  top: 5px;
+  font-size: 16px;
+  width: 20%;
+  left: 20%;
+}

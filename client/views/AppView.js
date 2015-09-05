@@ -27,10 +27,27 @@ var AppView = Backbone.View.extend({
 
   render: function() {
     this.$el.attr('id', 'player');
+
+    this.songQueueView.$el.on('mouseenter', (function() {
+      this.playerView.$el.velocity({bottom: ['60px', '0px']}, {duration: 500, queue: false});
+      this.songQueueView.$el.velocity({bottom: ['-338px', '-388px']}, {duration: 500, queue: false});
+      this.songQueueView.$el.css('cursor', 'pointer');
+      this.songQueueView.$el.on('click', (function(){
+        this.playerView.$el.velocity({bottom: ['398px', '60px']}, {duration: 1000, queue: false});
+        this.songQueueView.$el.velocity({bottom: ['0px', '-338px']}, {duration: 1000, queue: false});
+        this.songQueueView.$el.css('cursor', 'default');
+      }).bind(this));
+    }).bind(this));
+
+    this.songQueueView.$el.on('mouseleave', (function() {
+      this.playerView.$el.velocity({bottom: ['0px', this.playerView.$el.css('bottom')]}, {duration: 500, queue: false});
+      this.songQueueView.$el.velocity({bottom: ['-388px', this.songQueueView.$el.css('bottom')]}, {duration: 500, queue: false});
+    }).bind(this));
+
     return this.$el.html([
-      this.playerView.$el,
       this.libraryView.$el,
-      // this.songQueueView.$el
+      this.playerView.$el,
+      this.songQueueView.$el
     ]);
   }
 
