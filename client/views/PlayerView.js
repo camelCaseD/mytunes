@@ -36,6 +36,7 @@ var PlayerView = Backbone.View.extend({
         var $audio = this.$el.children('audio')[0];
 
         if (!$audio.paused) {
+          this.model.pause();
           $audio.pause();
         }
       }).bind(this),
@@ -47,6 +48,7 @@ var PlayerView = Backbone.View.extend({
         var $audio = this.$el.children('audio')[0];
 
         if ($audio.paused) {
+          this.model.play();
           $audio.play();
         }
       }).bind(this)
