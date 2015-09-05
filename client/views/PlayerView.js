@@ -3,7 +3,7 @@ var PlayerView = Backbone.View.extend({
 
   // HTML5 (native) audio tag is being used
   // see: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_HTML5_audio_and_video
-  el: '<div class="player"><button class="camel-fab mdl-shadow--3dp"><i class="icon icon-av-black-ic_play_arrow_black_24dp"></i></button><div id="info"></div><div class="timeline"><div class="currentTime mdl-shadow--2dp"></div><div class="timeEplased"></div></div><audio autoplay /></div>',
+  el: '<div class="player"><button class="camel-fab mdl-shadow--3dp"><i class="icon icon-av-black-ic_play_arrow_black_24dp"></i></button><div id="info"></div><div class="timeline"><div class="currentTimeInfo">0:00</div><div class="currentTime mdl-shadow--2dp"></div><div class="timeEplased"></div><div class="maxTimeInfo">0:00</div></div><audio autoplay /></div>',
 
   initialize: function() {
     $(this.$el).on('ended', (function() {
@@ -58,16 +58,35 @@ var PlayerView = Backbone.View.extend({
 
   updateTimer: function() {
     var $audio = this.$el.children('audio')[0];
-    var $timeEplased = this.$el.children('.timeline')[0].children[0];
-    var $currentTime = this.$el.children('.timeline')[0].children[1];
+    var $timeEplased = this.$el.children('.timeline').children('.timeEplased');
+    var $currentTime = this.$el.children('.timeline').children('.currentTime');
+    var $currentTimeInfo = this.$el.children('.timeline')[0].children[0];
 
     var percentPlayed = Math.round($audio.currentTime / $audio.duration * 100);
     var barWidth = Math.ceil(percentPlayed * (800 / 100));
 
-    // console.log(percentage / 800);
+    $timeEplased.velocity({width: [barWidth + 'px', $timeEplased.width() + 'px']}, {duration: 250, queue: false});
+    $currentTime.velocity({left: [barWidth + 'px', $currentTime.css('left')]}, {duration: 250, queue: false});
 
-    $timeEplased.style.left = barWidth + 'px';
-    $currentTime.style.width = barWidth + 'px';
+    var minutes = Math.floor($audio.currentTime / 60);
+    var seconds = Math.floor($audio.currentTime - minutes * 60);
+
+    if (seconds < 10) {
+      seconds = '0' + seconds;
+    }
+
+    $currentTimeInfo.innerText = minutes + ':' + seconds;
+
+    var $maxTimeInfo = this.$el.children('.timeline')[0].children[3];
+
+    var minutes = Math.floor($audio.duration / 60);
+    var seconds = Math.floor($audio.duration - minutes * 60);
+
+    if (seconds < 10) {
+      seconds = '0' + seconds;
+    }
+
+    $maxTimeInfo.innerText = minutes + ':' + seconds;
   }
 
 });
