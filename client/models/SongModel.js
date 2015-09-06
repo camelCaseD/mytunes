@@ -32,8 +32,6 @@ var SongModel = Backbone.Model.extend({
   ended: function() {
     this.set('paused', true);
 
-    console.log(this.get('paused'));
-
     this.trigger('ended', this);
   }
 
