@@ -6,8 +6,8 @@ var PlayerView = Backbone.View.extend({
   el: '<div class="player"><button class="camel-fab mdl-shadow--3dp"><i class="icon icon-av-black-ic_play_arrow_black_24dp"></i></button><div id="info"></div><div class="timeline"><div class="currentTimeInfo">0:00</div><div class="currentTime mdl-shadow--2dp"></div><div class="timeEplased"></div><div class="maxTimeInfo">0:00</div></div><audio autoplay /></div>',
 
   initialize: function() {
-    $(this.$el).on('ended', (function() {
-      this.trigger('ended');
+    $(this.$el.children('audio')).on('ended', (function() {
+      this.model.ended();
     }).bind(this));
 
     $(this.$el).children('audio').on('pause', this.togglePlayButton.bind(this));
