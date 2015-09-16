@@ -11,7 +11,7 @@ var LibraryEntryView = Backbone.View.extend({
 
   tagName: 'li',
 
-  template: _.template('<img class="record mdl-shadow--3dp" src="img/brighterAlbumArt.jpg" /><div class="title"><%= title %></div><div class="author">(<%= artist %>)</div>'),
+  template: _.template('<img class="record mdl-shadow--3dp" src="img/camel.jpg" /><div class="title"><%= title %></div><div class="author">(<%= artist %>)</div>'),
 
   events: {
     'click': function() {

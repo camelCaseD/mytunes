@@ -77,6 +77,8 @@ client/bower_components
 *.vob
 *.wmv
 
+client/mp3s
+
 # Floobits
 .floo
 .floobit
