@@ -155,7 +155,7 @@ div.player #info h5 {
 
 .song-queue li {
   width: 100%;
-  border-top: 1px solid black;
+  border-top: 3px solid #2187E7;
   height: 50px;
   cursor: default;
 }
