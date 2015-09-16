@@ -8,21 +8,23 @@ var SongQueue = Songs.extend({
       }
     }, this);
 
-    this.on('ended', function() {
-      this.at(0).dequeue();
-      if (this.length > 0) {
-        this.playFirst();
-      }
-    }, this);
+    this.on('ended', this.dequeue, this);
 
-    this.on('dequeue', function(song) {
-      song.set('playCount', song.get('playCount') + 1);
-      this.remove(song);
-    }, this);
+    this.on('dequeue', this.dequeue, this);
   },
 
   playFirst: function() {
-    var song = this.at(0);
-    song.play();
+    this.at(0).play();
+  },
+
+  dequeue: function() {
+    this.remove(this.at(0));
+
+    if (this.length > 0) {
+      this.playFirst();
+    }
+
+    return this.at(0);
   }
+
 });
